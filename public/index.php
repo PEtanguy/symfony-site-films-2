@@ -22,11 +22,11 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false
 
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 // $request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
-$kernel->terminate($request, $response);
 
 $request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$kernel->terminate($request, $response);
+$response->send();
 
 // tell Symfony about your reverse proxy
 Request::setTrustedProxies(
