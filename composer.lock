@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "becc65ea03eefc87c54e5e9a67c7d51b",
+    "content-hash": "563244a3c1523926202808fee7aecc29",
     "packages": [
         {
             "name": "blackknight467/star-rating-bundle",
@@ -7068,9 +7068,12 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3",
+        "php": "^7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.4.1"
+    }
 }
