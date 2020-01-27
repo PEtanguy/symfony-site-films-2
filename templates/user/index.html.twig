@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+
+<div class="user-list">
+{% for user in users %}
+
+        <div class="user-wrapper">
+          <div class="user_management">
+            <div class="username">
+              <div class="layout-col">
+                Username:
+              </div>
+              <div class="result-col">
+                {{user.username}}
+              </div>
+            </div>
+            <div class="username">
+              <div>
+                Number of Movies Added:
+              </div>
+              <div class="result-col">
+                {{user.movies.count}}
+              </div>
+            </div>
+            <div class="username">
+              <div class="layout-col">
+                Name:
+              </div>
+              <div class="result-col">
+                {{user.fullName}}
+              </div>
+            </div>
+          </div>
+          <div class="action">
+          <a href="{{ path('user_edit', {'id': user.id}) }}">
+            <div class="btn btn-warning">
+              Edit
+            </div>
+          </a>
+          <a href="{{ path('user_delete', {'id': user.id}) }}">
+             <div class="btn btn-danger">
+              Delete
+            </div>
+          </a>
+          </div>
+        </div>
+
+        <br>
+{% endfor %}
+</div>
+{% endblock %}

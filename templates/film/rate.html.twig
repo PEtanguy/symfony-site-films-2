@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit your film{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Edit your film</h1>
+</div>
+
+<div>
+  <form method="post">
+  <label for="inputUsername">Rate</label>
+        <select name="cars">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+   <button class="btn btn-lg btn-primary" type="submit">
+        Rate
+    </button>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allociné by Shippeo{% endblock %}
+
+{% block body %}
+
+<div class="main_content">
+    <div class='list_film'>
+      <h2 style="color: #ffffff">Our Users' picks!</h2>
+      <br>
+      <ul>
+        {% for movie in movies %}
+
+        <a href="{{movie.url}}">
+        <div class="card-product film_details">
+          <div class="card-product-infos">
+              <h2>{{movie.title}}</h2>
+            <p>User who added it: <strong>{{movie.user.username}}</strong></p>
+            </a>
+            <div class="rating">
+            Average Rating:
+            {% for vote in movie.votesValue %}
+              {% set total = (total + vote) %}
+            {% endfor %}
+              {% set count = (movie.votesValue|length) %}
+              {% set rate = total / count %}
+              {{ rate|round }} / 5
+             <br>
+            Number of Votes:
+            {% if movie.numberOfVoters != null %}
+              {{movie.numberOfVoters}}
+            {% else %}
+              0
+            {% endif %}
+
+
+
+            </div>
+          </div>
+
+          <div class="edit_delete">
+          {% if movie.user == app.user %}
+              <div class="btn btn-warning">
+                <a href="{{ path('film_edit', {'id': movie.id}) }}">Edit</a>
+              </div>
+              <div class="btn btn-danger">
+                <a href="{{ path('film_delete', {'id': movie.id}) }}">Delete</a>
+              </div>
+          {% else %}
+              <div class="empty_div"></div>
+          {% endif %}
+          </div>
+        </div>
+
+        <br>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <br>
+    <div class="user_box">
+      <h3>Latest Users</h3>
+      <ul>
+        {% for user in users %}
+
+          <div class="user_details">
+            {{user.username}} <br>
+          </div>
+
+        <br>
+        {% endfor %}
+      </ul>
+    </div>
+</div>
+
+{% endblock %}

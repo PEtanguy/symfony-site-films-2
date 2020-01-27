@@ -1,12 +1,98 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Welcome!{% endblock %}</title>
+  {% block stylesheets %}
+            {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+            {{ encore_entry_link_tags('app') }}
+
+            <!-- Renders a link tag (if your module requires any CSS)
+                 <link rel="stylesheet" href="/build/app.css"> -->
+        {% endblock %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
+        <script src="https://kit.fontawesome.com/2dd059d637.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  {% block header %}
+            <header>
+                <div class="navbar navbar-default navbar-static-top" role="navigation" id='navbar'>
+                    <div class="container">
+                        <div class="">
+                            <a class="navbar-brand" href="{{ path('home') }}">
+                                <h2>Allociné by</h2>
+                                <img alt="Qries" src="https://uploads-ssl.webflow.com/5b9b7ee3efe50a38e00d129f/5b9bc388d116e1254ad27f82_SHIPPEO_LOGO_BLANC.svg" width="150" height="70">
+                            </a>
+
+
+                        </div>
+                        <div class="">
+                          <div class="dropdown">
+                            <i class="fas fa-bars" style="font-size: 200%;"></i>
+                            <div class="dropdown-content">
+                            <ul class="nav navbar-nav navbar-right">
+
+
+
+                                    {% if app.user %}
+                                      {% if app.user.admin == true %}
+                                      <div class="admin-options">
+                                          ADMIN OPTIONS
+                                        <a href="{{ path('user_management') }}">
+                                            Manage Users
+                                        </a>
+                                      </div>
+                                      {% endif %}
+                                    {% endif %}
+
+                                {% if app.user %}
+
+                                        <p>
+                                           Logged as: {{ app.user.username }}
+                                        </p>
+                                        <a href="{{ path('film/new') }}">
+                                            List a film
+                                        </a>
+                                        <a href="{{ path('app_logout') }}">
+                                            Log out
+                                        </a>
+
+
+
+                                {% else %}
+                                    <a href="{{ path('app_login') }}">
+                                        Login
+                                    </a>
+                                    <a href="{{ path('user/signup') }}">
+                                        Signup
+                                    </a>
+                                {% endif %}
+
+
+                            </ul>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+
+
+
+
+
+        {% block body %}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+
+            <!-- Renders app.js & a webpack runtime.js file
+                <script src="/build/runtime.js"></script>
+                <script src="/build/app.js"></script> -->
+        {% endblock %}
+      </body>
+      </html>

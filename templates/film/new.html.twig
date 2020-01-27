@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add a Film{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Add a Film to our list!</h1>
+</div>
+
+<div>
+  {{ form_start(form) }}
+      {{ form_widget(form) }}
+
+      <!-- <input type="submit"/> -->
+  {{ form_end(form) }}
+</div>
+
+{% endblock %}
