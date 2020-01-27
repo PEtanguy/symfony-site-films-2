@@ -37,6 +37,9 @@
 
             </div>
           </div>
+          <div class="vote">
+            <a href="{{ path('film_rate', {'id': movie.id}) }}">Rate</a>
+          </div>
 
           <div class="edit_delete">
           {% if movie.user == app.user %}

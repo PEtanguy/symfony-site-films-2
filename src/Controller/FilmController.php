@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Form\MovieFormType;
+use App\Form\EditMovieFormType;
 use App\Entity\User;
 use App\Entity\Movie;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -70,7 +71,8 @@ class FilmController extends AbstractController
      * @Route("/film/{id}/rate", name="film_rate")
      */
     public function rate(Movie $movie,Request $request)
-    {
+        {
+
         $entityManager = $this->getDoctrine()->getManager();
         $form = $this->createForm(MovieFormType::class, $movie);
         $form->handleRequest($request);
@@ -80,11 +82,13 @@ class FilmController extends AbstractController
         $int = (int)$temp_rating;
         $existing_rating = $movie->getRating();
         $numberOfVoters = $movie->getNumberOfVoters();
-
         if ($numberOfVoters == null || $numberOfVoters == 0) {
           $numberOfVoters = 1;
           $rate = $temp_rating ;
           $movie->setRating($rate);
+          $array = $movie->getVotesValue();
+          array_push($array, $temp_rating);
+          $movie->setVotesValue($array);
           $movie->setNumberOfVoters($numberOfVoters);
           dump($numberOfVoters, $rate, $array);
         }
@@ -92,6 +96,7 @@ class FilmController extends AbstractController
           $numberOfVoters = $movie->getNumberOfVoters();
           $numberOfVoters = $numberOfVoters + 1;
           $rate = $temp_rating ;
+
           $movie->setRating($rate);
           $movie->setNumberOfVoters($numberOfVoters);
 
